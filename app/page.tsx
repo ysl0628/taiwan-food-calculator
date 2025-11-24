@@ -24,8 +24,9 @@ export default function Home() {
   useEffect(() => {
     const loadFoods = async () => {
       try {
-        // Next.js basePath config will automatically prefix this path
-        const response = await fetch('/foods.json');
+        // Use basePath for GitHub Pages subdirectory deployment
+        const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+        const response = await fetch(`${basePath}/foods.json`);
         if (response.ok) {
           const data = await response.json();
           setFoodDB(data);
