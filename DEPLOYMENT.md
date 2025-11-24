@@ -37,11 +37,18 @@ git commit -m "Initial commit with foods.json"
 git push origin main
 ```
 
-### 4. 啟用 GitHub Pages
+### 4. 啟用 GitHub Pages（**必須步驟！**）
+
+⚠️ **重要**：如果跳過此步驟，GitHub Actions 部署會失敗！
 
 1. 前往 GitHub 倉庫的 **Settings** → **Pages**
-2. Source 選擇 **GitHub Actions**
-3. 等待 Actions 完成建置和部署
+   - 網址：`https://github.com/YOUR_USERNAME/taiwan-food-calculator/settings/pages`
+2. 在 **Source** 區塊中：
+   - 選擇 **GitHub Actions**（不是 "Deploy from a branch"）
+3. 點擊 **Save**
+4. 等待 Actions 完成建置和部署
+
+**驗證**：啟用後，在 Settings → Pages 頁面應該會看到 "Your site is live at..." 的訊息。
 
 ## 更新資料
 
@@ -83,4 +90,15 @@ A: 檢查：
 git ls-files | grep foods.json
 # 應該顯示：public/foods.json
 ```
+
+### Q: 部署時出現 "Creating Pages deployment failed" 或 "Not Found" 錯誤？
+
+A: 這表示 GitHub Pages 還沒有啟用。解決方法：
+
+1. 前往 `https://github.com/YOUR_USERNAME/taiwan-food-calculator/settings/pages`
+2. 在 **Source** 區塊選擇 **GitHub Actions**（不是 "Deploy from a branch"）
+3. 點擊 **Save**
+4. 重新運行 GitHub Actions 工作流
+
+**注意**：必須在第一次部署前完成此步驟，否則會一直失敗。
 

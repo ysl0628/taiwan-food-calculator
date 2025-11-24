@@ -72,8 +72,11 @@ git commit -m "Add foods.json data"
 
 2. 推送程式碼到 GitHub（包含 `public/foods.json`）
 
-3. 在 GitHub 設定中啟用 GitHub Pages：
-   - Settings → Pages → Source: GitHub Actions
+3. **重要：在 GitHub 設定中啟用 GitHub Pages**：
+   - 前往仓库：`https://github.com/YOUR_USERNAME/taiwan-food-calculator/settings/pages`
+   - 在 **Source** 下拉選單中選擇：**GitHub Actions**
+   - 點擊 **Save**
+   - ⚠️ **必須先完成此步驟，否則部署會失敗！**
 
 4. GitHub Actions 會自動建置並部署（見 `.github/workflows/deploy.yml`）
 
