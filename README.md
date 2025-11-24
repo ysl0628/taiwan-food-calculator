@@ -158,3 +158,8 @@ git commit -m "Add Git LFS tracking for foods.json"
 - 使用 `'use client'` 標記客戶端組件
 - 應用程式為純前端，所有資料在瀏覽器端處理
 - 個案紀錄使用 `localStorage` 保存（可選，未實作）
+
+## 聯絡資訊
+
+- GitHub: [https://github.com/ysl0628](https://github.com/ysl0628)
+- Email: [yihsinlan@gmail.com](mailto:yihsinlan@gmail.com)

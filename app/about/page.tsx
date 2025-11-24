@@ -104,6 +104,20 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* Contact */}
+        <div className="mt-6 pt-6 border-t border-slate-200">
+          <h3 className="font-bold text-slate-800 mb-3">聯絡資訊</h3>
+          <p className="text-sm text-slate-600 mb-4">如有任何問題或建議，請聯絡我們。</p>
+          <div className="space-y-2 text-sm text-slate-600">
+            <p>
+              GitHub：<a href="https://github.com/ysl0628" className="text-blue-600 underline" target="_blank" rel="noreferrer">github.com/ysl0628</a>
+            </p>
+            <p>
+              Email：<a href="mailto:yihsinlan@gmail.com" className="text-blue-600 underline">yihsinlan@gmail.com</a>
+            </p>
+          </div>
+        </div>
+
         {/* Version */}
         <div className="mt-6 pt-6 border-t border-slate-200 text-center">
           <p className="text-xs text-slate-400">Taiwan NutriCalc Pro v1.0.0</p>
