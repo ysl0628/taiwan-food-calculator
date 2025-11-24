@@ -8,8 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
-    "convert-excel": "node scripts/convert-excel.js",
-    "export": "next build && next export"
+    "convert-excel": "node scripts/convert-excel.js"
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
@@ -28,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^8.47.0",
     "@typescript-eslint/parser": "^8.47.0",
     "autoprefixer": "^10.4.0",
+    "cross-env": "^10.1.0",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.3",
     "postcss": "^8.4.0",

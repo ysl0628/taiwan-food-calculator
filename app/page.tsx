@@ -24,12 +24,13 @@ export default function Home() {
   useEffect(() => {
     const loadFoods = async () => {
       try {
+        // Next.js basePath config will automatically prefix this path
         const response = await fetch('/foods.json');
         if (response.ok) {
           const data = await response.json();
           setFoodDB(data);
         } else {
-          console.error('Failed to load food data');
+          console.error('Failed to load food data', response.status, response.statusText);
         }
       } catch (error) {
         console.error('Error loading food data:', error);
