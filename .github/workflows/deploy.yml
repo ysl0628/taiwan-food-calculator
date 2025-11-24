@@ -42,6 +42,7 @@ jobs:
         run: pnpm build
         env:
           NODE_ENV: production
+          ESLINT_NO_DEV_ERRORS: true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

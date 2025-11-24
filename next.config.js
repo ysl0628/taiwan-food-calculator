@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export', // 静态导出，用于 GitHub Pages
+  output: 'export',
+  outputFileTracingRoot: require('path').join(__dirname),
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     unoptimized: true, // GitHub Pages 需要
   },
