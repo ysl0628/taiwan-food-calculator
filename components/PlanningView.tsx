@@ -76,7 +76,7 @@ const PlanningView: React.FC<PlanningViewProps> = ({ plan, tdee, onUpdate, onNex
           <ClipboardList className="w-6 h-6" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">飲食處方 (Diet Prescription)</h2>
+          <h2 className="text-2xl font-bold text-slate-800">熱量設計 (Calorie Planning)</h2>
           <p className="text-slate-500">設定六大餐次份量分配，系統自動計算營養總量</p>
         </div>
       </div>

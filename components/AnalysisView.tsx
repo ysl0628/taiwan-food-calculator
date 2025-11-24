@@ -7,7 +7,7 @@ interface AnalysisViewProps {
   plan: DietPlan;
   dailyRecord: DailyRecord;
   onSave?: () => void;
-  onRemoveFromLog?: (mealId: string, index: number) => void;
+  onRemoveFromLog?: (mealId: MealTimeId, index: number) => void;
 }
 
 // --- Logic: Convert grams/calories back to Portions ---
@@ -142,7 +142,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
                 </div>
                 <div>
                     <h2 className="text-2xl font-bold text-slate-800">成效分析 (Analysis)</h2>
-                    <p className="text-slate-500">比對飲食處方與實際攝取量 (實際 / 目標)</p>
+                    <p className="text-slate-500">比對熱量設計與實際攝取量 (實際 / 目標)</p>
                 </div>
             </div>
             

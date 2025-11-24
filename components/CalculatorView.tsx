@@ -8,7 +8,7 @@ import NutrientSettings from './NutrientSettings';
 interface CalculatorViewProps {
   dietPlan: DietPlan;
   visibleNutrients: NutrientKey[];
-  setVisibleNutrients: React.Dispatch<React.SetStateAction<NutrientKey[]>>;
+  setVisibleNutrients: (nutrients: NutrientKey[]) => void;
   extraFoods?: FoodItem[];
   dailyRecord: DailyRecord; // To calculate existing progress
   onAddToLog: (mealId: MealTimeId, items: CartItem[]) => void;
@@ -218,13 +218,12 @@ const CalculatorView: React.FC<CalculatorViewProps> = ({
   };
 
   const toggleNutrient = (key: NutrientKey) => {
-    setVisibleNutrients(prev => {
-      if (prev.includes(key)) {
-        if (key === 'cal' && prev.length === 1) return prev; 
-        return prev.filter(k => k !== key);
-      }
-      return [...prev, key];
-    });
+    if (visibleNutrients.includes(key)) {
+      if (key === 'cal' && visibleNutrients.length === 1) return; 
+      setVisibleNutrients(visibleNutrients.filter(k => k !== key));
+    } else {
+      setVisibleNutrients([...visibleNutrients, key]);
+    }
   };
 
   // Filter extra foods based on current search/category

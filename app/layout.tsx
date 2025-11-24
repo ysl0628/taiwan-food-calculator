@@ -9,10 +9,10 @@ export const metadata: Metadata = {
   creator: 'Renee Lan',
   publisher: 'Renee Lan',
   applicationName: 'Taiwan NutriCalc Pro',
-  keywords: ['食品營養成分資料庫', 'Taiwan NutriCalc Pro', '台灣營養計算', '食品營養成分'],
+  keywords: ['食品營養成分資料庫', 'Taiwan NutriCalc Pro', '台灣飲食紀錄', '台灣熱量計算', '食品營養成分', '營養師'],
   openGraph: {
     title: 'Taiwan NutriCalc Pro',
-    description: '台灣營養計算專業版',
+    description: '台灣飲食紀錄與熱量計算專業版',
   },
 };
 

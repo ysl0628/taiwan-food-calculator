@@ -1,25 +1,33 @@
 
 import React, { useState } from 'react';
-import { User, ClipboardList, Calculator, ChefHat, PieChart, History, PanelLeftClose, PanelLeft } from './Icons';
-import { ViewType, FoodItem } from '@/types';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { User, ClipboardList, Calculator, ChefHat, PieChart, History, PanelLeftClose, PanelLeft, Info } from './Icons';
+import { FoodItem } from '@/types';
 import ExcelImporter from './ExcelImporter';
+import { useStore } from '@/store/useStore';
 
 interface SidebarProps {
-  activeView: ViewType;
-  onChangeView: (view: ViewType) => void;
-  onImport: (items: FoodItem[]) => void;
+  onImport?: (items: FoodItem[]) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeView, onChangeView, onImport }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const pathname = usePathname();
+  const addExtraFoods = useStore((state) => state.addExtraFoods);
   
-  const navItems: { id: ViewType; label: string; icon: React.ElementType }[] = [
-    { id: 'profile', label: '個案評估', icon: User },
-    { id: 'planning', label: '飲食處方', icon: ClipboardList },
-    { id: 'calculator', label: '飲食紀錄', icon: Calculator },
-    { id: 'analysis', label: '成效分析', icon: PieChart },
-    { id: 'history', label: '個案紀錄', icon: History },
+  const navItems: { path: string; label: string; icon: React.ElementType }[] = [
+    { path: '/profile', label: '個案評估', icon: User },
+    { path: '/planning', label: '熱量設計', icon: ClipboardList },
+    { path: '/calculator', label: '飲食紀錄', icon: Calculator },
+    { path: '/analysis', label: '成效分析', icon: PieChart },
+    { path: '/history', label: '個案紀錄', icon: History },
   ];
+
+  const handleImport = (items: FoodItem[]) => {
+    addExtraFoods(items);
+    if (onImport) onImport(items);
+  };
 
   return (
     <div 
@@ -67,11 +75,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onChangeView, onImport })
         )}
         
         {navItems.map((item) => {
-          const isActive = activeView === item.id;
+          const isActive = pathname === item.path;
           return (
-            <button
-              key={item.id}
-              onClick={() => onChangeView(item.id)}
+            <Link
+              key={item.path}
+              href={item.path}
               title={isCollapsed ? item.label : ''}
               className={`
                 w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 relative group
@@ -93,11 +101,39 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onChangeView, onImport })
                   {item.label}
                 </div>
               )}
-            </button>
+            </Link>
           );
         })}
       </div>
       
+      {/* About Link */}
+      <div className="px-3 pb-2">
+        <Link
+          href="/about"
+          title={isCollapsed ? '關於' : ''}
+          className={`
+            w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 relative group
+            ${pathname === '/about' 
+              ? 'bg-slate-900 text-white shadow-md shadow-slate-900/10' 
+              : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}
+            ${isCollapsed ? 'justify-center' : ''}
+          `}
+        >
+          <Info className={`w-5 h-5 flex-shrink-0 ${pathname === '/about' ? 'text-blue-400' : 'text-slate-400'}`} />
+          
+          {!isCollapsed && (
+            <span className="whitespace-nowrap overflow-hidden text-ellipsis">關於</span>
+          )}
+
+          {/* Tooltip for collapsed mode */}
+          {isCollapsed && (
+            <div className="absolute left-full ml-2 px-2 py-1 bg-slate-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 whitespace-nowrap">
+              關於
+            </div>
+          )}
+        </Link>
+      </div>
+
       {/* Footer Actions */}
       <div className={`px-3 pb-4 ${isCollapsed ? 'flex flex-col items-center' : ''}`}>
         {!isCollapsed && (
@@ -108,7 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onChangeView, onImport })
         
         <div className="w-full flex justify-center">
            <ExcelImporter 
-              onImport={onImport} 
+              onImport={handleImport} 
               collapsed={isCollapsed}
               className={isCollapsed ? '' : 'w-full justify-center'} 
             />

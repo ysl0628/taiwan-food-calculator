@@ -252,7 +252,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ profile, onUpdate, onNext }) 
                onClick={onNext}
                className="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-200 active:scale-[0.98]"
              >
-               下一步：設定飲食處方
+               下一步：設定熱量設計
                <ArrowRight className="w-4 h-4" />
              </button>
            </div>

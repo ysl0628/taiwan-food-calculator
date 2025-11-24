@@ -56,10 +56,10 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
           { Category: '基本資料', Key: '體重 (kg)', Value: record.profile.weight },
           { Category: '基本資料', Key: '活動量', Value: record.profile.activityLevel },
           { Category: '基本資料', Key: '備註', Value: record.profile.notes || '' },
-          { Category: '飲食處方', Key: '目標熱量', Value: record.plan.targetCalories },
-          { Category: '飲食處方', Key: '目標蛋白質 (g)', Value: record.plan.targetP },
-          { Category: '飲食處方', Key: '目標脂肪 (g)', Value: record.plan.targetF },
-          { Category: '飲食處方', Key: '目標碳水 (g)', Value: record.plan.targetC },
+          { Category: '熱量設計', Key: '目標熱量', Value: record.plan.targetCalories },
+          { Category: '熱量設計', Key: '目標蛋白質 (g)', Value: record.plan.targetP },
+          { Category: '熱量設計', Key: '目標脂肪 (g)', Value: record.plan.targetF },
+          { Category: '熱量設計', Key: '目標碳水 (g)', Value: record.plan.targetC },
       ];
       const wsProfile = (window as any).XLSX.utils.json_to_sheet(profileData);
       (window as any).XLSX.utils.book_append_sheet(wb, wsProfile, "個案資料");
