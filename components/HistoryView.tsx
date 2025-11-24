@@ -14,7 +14,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
 
   // --- Global Export (Summary of all cases) ---
   const handleExportSummary = () => {
-    if (!window.XLSX) {
+    if (!(window as any).XLSX) {
         alert('Excel export library not loaded.');
         return;
     }
@@ -33,17 +33,17 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
         '備註': c.profile.notes || ''
     }));
 
-    const worksheet = window.XLSX.utils.json_to_sheet(exportData);
-    const workbook = window.XLSX.utils.book_new();
-    window.XLSX.utils.book_append_sheet(workbook, worksheet, "Case List");
-    window.XLSX.writeFile(workbook, `NutriPro_CaseSummary_${new Date().toISOString().split('T')[0]}.xlsx`);
+    const worksheet = (window as any).XLSX.utils.json_to_sheet(exportData);
+    const workbook = (window as any).XLSX.utils.book_new();
+    (window as any).XLSX.utils.book_append_sheet(workbook, worksheet, "Case List");
+    (window as any).XLSX.writeFile(workbook, `NutriPro_CaseSummary_${new Date().toISOString().split('T')[0]}.xlsx`);
   };
 
   // --- Single Case Detail Export ---
   const handleExportSingleCase = (record: CaseRecord) => {
-      if (!window.XLSX) { alert('Excel library missing'); return; }
+      if (!(window as any).XLSX) { alert('Excel library missing'); return; }
       
-      const wb = window.XLSX.utils.book_new();
+      const wb = (window as any).XLSX.utils.book_new();
       const dateStr = new Date(record.timestamp).toLocaleDateString();
 
       // Sheet 1: Profile & Plan
@@ -61,8 +61,8 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
           { Category: '飲食處方', Key: '目標脂肪 (g)', Value: record.plan.targetF },
           { Category: '飲食處方', Key: '目標碳水 (g)', Value: record.plan.targetC },
       ];
-      const wsProfile = window.XLSX.utils.json_to_sheet(profileData);
-      window.XLSX.utils.book_append_sheet(wb, wsProfile, "個案資料");
+      const wsProfile = (window as any).XLSX.utils.json_to_sheet(profileData);
+      (window as any).XLSX.utils.book_append_sheet(wb, wsProfile, "個案資料");
 
       // Sheet 2: Nutrient Analysis (Full)
       // Calculate totals for all nutrients
@@ -88,8 +88,8 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
                        meta.key === 'p' ? record.plan.targetP :
                        meta.key === 'f' ? record.plan.targetF : record.plan.targetC) : '-'
       }));
-      const wsAnalysis = window.XLSX.utils.json_to_sheet(analysisData);
-      window.XLSX.utils.book_append_sheet(wb, wsAnalysis, "營養總分析");
+      const wsAnalysis = (window as any).XLSX.utils.json_to_sheet(analysisData);
+      (window as any).XLSX.utils.book_append_sheet(wb, wsAnalysis, "營養總分析");
 
       // Sheet 3: Food Log
       const logData: any[] = [];
@@ -108,10 +108,10 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
               });
           });
       });
-      const wsLog = window.XLSX.utils.json_to_sheet(logData);
-      window.XLSX.utils.book_append_sheet(wb, wsLog, "飲食紀錄明細");
+      const wsLog = (window as any).XLSX.utils.json_to_sheet(logData);
+      (window as any).XLSX.utils.book_append_sheet(wb, wsLog, "飲食紀錄明細");
 
-      window.XLSX.writeFile(wb, `${record.profile.name || 'Case'}_FullReport.xlsx`);
+      (window as any).XLSX.writeFile(wb, `${record.profile.name || 'Case'}_FullReport.xlsx`);
   };
 
   // --- Modal Component for Details ---

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { DietPlan, DailyRecord, FOOD_GROUPS, MEAL_TIMES, EXCHANGE_STANDARDS, FoodGroupId, CartItem } from '@/types';
+import { DietPlan, DailyRecord, FOOD_GROUPS, MEAL_TIMES, EXCHANGE_STANDARDS, FoodGroupId, CartItem, MealTimeId } from '@/types';
 import { PieChart, AlertTriangle, Check, Save, FileSpreadsheet, Trash2 } from './Icons';
 
 interface AnalysisViewProps {
@@ -76,7 +76,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
 
   // Helper to check deviation
   const renderComparison = (groupId: FoodGroupId, mealId: string) => {
-      const planned = plan.portions[groupId]?.[mealId] || 0;
+      const planned = plan.portions[groupId]?.[mealId as MealTimeId] || 0;
       const actual = actualPortionsMatrix[groupId]?.[mealId] || 0;
       
       if (planned === 0 && actual === 0) return <span className="text-slate-200">-</span>;
@@ -101,7 +101,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
   };
 
   const handleExportSingle = () => {
-      if (!window.XLSX) {
+      if (!(window as any).XLSX) {
         alert('Excel library missing');
         return;
       }
@@ -123,14 +123,14 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
           '熱量': Math.round(i.cal * i.quantity)
       }));
 
-      const wb = window.XLSX.utils.book_new();
-      const wsSummary = window.XLSX.utils.json_to_sheet(data);
-      const wsLog = window.XLSX.utils.json_to_sheet(logData);
+      const wb = (window as any).XLSX.utils.book_new();
+      const wsSummary = (window as any).XLSX.utils.json_to_sheet(data);
+      const wsLog = (window as any).XLSX.utils.json_to_sheet(logData);
       
-      window.XLSX.utils.book_append_sheet(wb, wsSummary, "Summary");
-      window.XLSX.utils.book_append_sheet(wb, wsLog, "DietLog");
+      (window as any).XLSX.utils.book_append_sheet(wb, wsSummary, "Summary");
+      (window as any).XLSX.utils.book_append_sheet(wb, wsLog, "DietLog");
       
-      window.XLSX.writeFile(wb, "Analysis_Single.xlsx");
+      (window as any).XLSX.writeFile(wb, "Analysis_Single.xlsx");
   };
 
   return (
