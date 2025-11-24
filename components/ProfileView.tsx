@@ -68,7 +68,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ profile, onUpdate, onNext }) 
   const tdee = Math.round(bmr * multipliers[profile.activityLevel]);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8 animate-in slide-in-from-bottom-4 duration-500">
+    <div className="w-full mx-auto p-4 lg:p-6 space-y-8 animate-in slide-in-from-bottom-4 duration-500">
       
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
         <div className="flex items-center gap-4 md:flex-row flex-col">
