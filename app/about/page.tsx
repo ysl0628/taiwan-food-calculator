@@ -76,8 +76,11 @@ export default function AboutPage() {
             資料來源
           </h3>
           <p className="text-sm text-slate-600 leading-relaxed">
-            本系統使用台灣食品營養成分資料庫，包含超過 2,000 種食物的完整營養資訊，
-            涵蓋基本營養素、維生素、礦物質、脂肪酸和胺基酸等詳細數據。
+            本系統使用衛生福利部食藥署
+            <a href="https://consumer.fda.gov.tw/Food/TFND.aspx?nodeID=178" target="_blank" rel="noreferrer" className="text-blue-600 underline mx-1">
+              食品營養成分資料庫
+            </a>
+            ，涵蓋 2,000+ 種食物的完整營養資訊（含基本營養素、維生素、礦物質、脂肪酸、胺基酸等）。資料版本：<strong>2025/07/10</strong>。
           </p>
         </div>
 
