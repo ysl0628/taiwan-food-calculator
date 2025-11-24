@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { User, ClipboardList, Calculator, ChefHat, PieChart, History, PanelLeftClose, PanelLeft, Info } from './Icons';
+import { ChefHat, PanelLeftClose, PanelLeft, Info } from './Icons';
 import { FoodItem } from '@/types';
 import ExcelImporter from './ExcelImporter';
 import { useStore } from '@/store/useStore';
+import { WORKFLOW_NAV_ITEMS } from './navItems';
 
 interface SidebarProps {
   onImport?: (items: FoodItem[]) => void;
@@ -16,14 +17,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
   const pathname = usePathname();
   const addExtraFoods = useStore((state) => state.addExtraFoods);
   
-  const navItems: { path: string; label: string; icon: React.ElementType }[] = [
-    { path: '/profile', label: '個案評估', icon: User },
-    { path: '/planning', label: '熱量設計', icon: ClipboardList },
-    { path: '/calculator', label: '飲食紀錄', icon: Calculator },
-    { path: '/analysis', label: '成效分析', icon: PieChart },
-    { path: '/history', label: '個案紀錄', icon: History },
-  ];
-
   const handleImport = (items: FoodItem[]) => {
     addExtraFoods(items);
     if (onImport) onImport(items);
@@ -74,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
           </div>
         )}
         
-        {navItems.map((item) => {
+        {WORKFLOW_NAV_ITEMS.map((item) => {
           const isActive = pathname === item.path;
           return (
             <Link

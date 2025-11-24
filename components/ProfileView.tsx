@@ -70,13 +70,15 @@ const ProfileView: React.FC<ProfileViewProps> = ({ profile, onUpdate, onNext }) 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8 animate-in slide-in-from-bottom-4 duration-500">
       
-      <div className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center shadow-sm">
-          <User className="w-6 h-6" />
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800">個案評估 (Assessment)</h2>
-          <p className="text-slate-500">輸入基本資料以進行體位分析與熱量計算</p>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
+        <div className="flex items-center gap-4 md:flex-row flex-col">
+          <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center shadow-sm">
+            <User className="w-6 h-6" />
+          </div>
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-bold text-slate-800">個案評估 (Assessment)</h2>
+            <p className="text-slate-500">輸入基本資料以進行體位分析與熱量計算</p>
+          </div>
         </div>
       </div>
 

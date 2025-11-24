@@ -1,7 +1,7 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { DietPlan, FOOD_GROUPS, MEAL_TIMES, EXCHANGE_STANDARDS, FoodGroupId, MealTimeId } from '@/types';
-import { ClipboardList, ArrowRight, Target } from './Icons';
+import { ClipboardList, ArrowRight } from './Icons';
 
 interface PlanningViewProps {
   plan: DietPlan;
@@ -71,13 +71,15 @@ const PlanningView: React.FC<PlanningViewProps> = ({ plan, tdee, onUpdate, onNex
 
   return (
     <div className="w-full mx-auto p-4 lg:p-6 space-y-8 animate-in slide-in-from-right-8 duration-500">
-       <div className="flex items-center gap-4 mb-4">
-        <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shadow-sm">
-          <ClipboardList className="w-6 h-6" />
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800">熱量設計 (Calorie Planning)</h2>
-          <p className="text-slate-500">設定六大餐次份量分配，系統自動計算營養總量</p>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-4">
+        <div className="flex items-center gap-4 md:flex-row flex-col">
+          <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shadow-sm">
+            <ClipboardList className="w-6 h-6" />
+          </div>
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-bold text-slate-800">熱量設計 (Calorie Planning)</h2>
+            <p className="text-slate-500">設定六大餐次份量分配，系統自動計算營養總量</p>
+          </div>
         </div>
       </div>
 

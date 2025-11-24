@@ -343,8 +343,8 @@ const CalculatorView: React.FC<CalculatorViewProps> = ({
         </div>
       )}
 
-      {/* Progress Header (Fixed) */}
-      <div className="flex-shrink-0 w-full bg-slate-50/95 backdrop-blur-md border-b border-slate-200 shadow-sm z-30">
+      {/* Progress Header (Fixed on Desktop) */}
+      <div className="hidden lg:block flex-shrink-0 w-full bg-slate-50/95 backdrop-blur-md border-b border-slate-200 shadow-sm z-30">
           <div className="max-w-[1600px] mx-auto px-4 md:px-6 py-4">
             <ProgressDashboard current={combinedTotals} target={dietPlan} onAnalysis={onGoToAnalysis} />
           </div>

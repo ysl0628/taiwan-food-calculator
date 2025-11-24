@@ -41,7 +41,8 @@ import {
   Download,
   PanelLeftClose,
   PanelLeft,
-  Calendar
+  Calendar,
+  Menu
 } from 'lucide-react';
 
 export {
@@ -86,5 +87,6 @@ export {
   Download,
   PanelLeftClose,
   PanelLeft,
-  Calendar
+  Calendar,
+  Menu
 };

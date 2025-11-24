@@ -135,21 +135,21 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
 
   return (
     <div className="w-full mx-auto p-4 lg:p-6 space-y-8 animate-in slide-in-from-right-8 duration-500 pb-24">
-        <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-4">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-4">
+            <div className="flex items-center gap-4 md:flex-row flex-col">
                 <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center shadow-sm">
                     <PieChart className="w-6 h-6" />
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                     <h2 className="text-2xl font-bold text-slate-800">成效分析 (Analysis)</h2>
                     <p className="text-slate-500">比對熱量設計與實際攝取量 (實際 / 目標)</p>
                 </div>
             </div>
             
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full md:w-auto">
                  <button 
                     onClick={handleExportSingle}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 transition-colors text-sm font-medium"
+                    className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 transition-colors text-sm font-medium w-full md:w-auto"
                 >
                     <FileSpreadsheet className="w-4 h-4" />
                     匯出本頁

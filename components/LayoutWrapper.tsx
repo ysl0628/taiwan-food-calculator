@@ -1,16 +1,19 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Sidebar from './Sidebar';
 import { useStore } from '@/store/useStore';
-import { User } from './Icons';
-import { CaseRecord, DailyRecord, MEAL_TIMES, FOOD_GROUPS } from '@/types';
+import { User, Menu, X, Info } from './Icons';
+import { CaseRecord, DailyRecord, MEAL_TIMES, FOOD_GROUPS, FoodItem } from '@/types';
+import { WORKFLOW_NAV_ITEMS } from './navItems';
+import ExcelImporter from './ExcelImporter';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
-  const { isLoadingFoods, foodDB, setFoodDB, setIsLoadingFoods, initializeDemoCase, savedCases } = useStore();
+  const { isLoadingFoods, foodDB, setFoodDB, setIsLoadingFoods, initializeDemoCase, savedCases, addExtraFoods } = useStore();
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Initialize demo record
   const safeDemoRecord: DailyRecord = useMemo(() => {
@@ -141,17 +144,84 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
     );
   }
 
+  const handleMobileImport = (items: FoodItem[]) => {
+    addExtraFoods(items);
+    setIsMobileMenuOpen(false);
+  };
+
   // Mobile Header
   const MobileHeader = () => (
-    <div className="lg:hidden h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sticky top-0 z-50">
-      <h1 className="text-lg font-bold text-slate-800">Nutri<span className="text-blue-600">Pro</span></h1>
-      <div className="flex gap-2">
-        <Link 
-          href="/profile" 
-          className={`p-2 rounded-lg ${pathname === '/profile' ? 'bg-blue-50 text-blue-600' : 'text-slate-400'}`}
+    <div className="lg:hidden h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sticky top-0 z-40">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => setIsMobileMenuOpen(true)}
+          className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors"
+          aria-label="開啟選單"
         >
-          <User className="w-5 h-5"/>
-        </Link>
+          <Menu className="w-5 h-5" />
+        </button>
+        <h1 className="text-lg font-bold text-slate-800">Nutri<span className="text-blue-600">Pro</span></h1>
+      </div>
+      <Link 
+        href="/profile" 
+        className={`p-2 rounded-lg border ${pathname === '/profile' ? 'border-slate-200 text-blue-600' : 'border-transparent text-slate-400'}`}
+        aria-label="回到個案評估"
+      >
+        <User className="w-5 h-5"/>
+      </Link>
+    </div>
+  );
+
+  const MobileMenu = () => (
+    <div className="lg:hidden fixed inset-0 z-50">
+      <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)} />
+      <div className="absolute inset-y-0 right-0 w-72 max-w-full bg-white shadow-2xl flex flex-col">
+        <div className="flex items-center justify-between px-4 h-16 border-b border-slate-100">
+          <h2 className="text-lg font-bold text-slate-800">選單</h2>
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            aria-label="關閉選單"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Workflow</h3>
+            <div className="space-y-2">
+              {WORKFLOW_NAV_ITEMS.map(item => {
+                const isActive = pathname === item.path;
+                return (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-xl border text-sm font-medium transition-all ${isActive ? 'bg-slate-900 text-white border-slate-900' : 'border-slate-200 text-slate-600'}`}
+                  >
+                    <item.icon className={`w-4 h-4 ${isActive ? 'text-blue-200' : 'text-slate-400'}`} />
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">其他</h3>
+            <Link
+              href="/about"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`flex items-center gap-3 px-3 py-2 rounded-xl border text-sm font-medium transition-all ${pathname === '/about' ? 'bg-slate-900 text-white border-slate-900' : 'border-slate-200 text-slate-600'}`}
+            >
+              <Info className={`w-4 h-4 ${pathname === '/about' ? 'text-blue-200' : 'text-slate-400'}`} />
+              <span>關於</span>
+            </Link>
+          </div>
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">資料匯入</h3>
+            <ExcelImporter collapsed onImport={handleMobileImport} />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -160,6 +230,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col lg:flex-row">
       <Sidebar />
       <MobileHeader />
+      {isMobileMenuOpen && <MobileMenu />}
       <main className="flex-1 min-w-0">
         {children}
       </main>
