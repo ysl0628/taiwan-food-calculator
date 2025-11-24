@@ -73,35 +73,72 @@ interface NutrientMeta {
 export const NUTRIENT_METADATA: NutrientMeta[] = [
   // Macros (Always vital)
   { key: 'cal', label: '熱量', unit: 'kcal', group: 'macro' },
+  { key: 'water', label: '水分', unit: 'g', group: 'macro' },
   { key: 'p', label: '蛋白質', unit: 'g', group: 'macro' },
   { key: 'f', label: '脂肪', unit: 'g', group: 'macro' },
   { key: 'c', label: '碳水', unit: 'g', group: 'macro' },
+  { key: 'ash', label: '灰分', unit: 'g', group: 'macro' },
 
   // Details
   { key: 'fiber', label: '膳食纖維', unit: 'g', group: 'detail' },
   { key: 'sugar', label: '糖質', unit: 'g', group: 'detail' },
+  { key: 'glucose', label: '葡萄糖', unit: 'g', group: 'detail' },
+  { key: 'fructose', label: '果糖', unit: 'g', group: 'detail' },
+  { key: 'sucrose', label: '蔗糖', unit: 'g', group: 'detail' },
+  { key: 'lactose', label: '乳糖', unit: 'g', group: 'detail' },
   { key: 'sat_fat', label: '飽和脂肪', unit: 'g', group: 'detail' },
   { key: 'trans_fat', label: '反式脂肪', unit: 'g', group: 'detail' },
   { key: 'cholesterol', label: '膽固醇', unit: 'mg', group: 'detail' },
+  { key: 'alcohol', label: '酒精', unit: 'g', group: 'detail' },
 
   // Minerals
-  { key: 'sodium', label: '鈉', unit: 'mg', group: 'mineral' }, // mapped from 'na'
+  { key: 'sodium', label: '鈉', unit: 'mg', group: 'mineral' },
   { key: 'k', label: '鉀', unit: 'mg', group: 'mineral' },
   { key: 'ca', label: '鈣', unit: 'mg', group: 'mineral' },
   { key: 'mg', label: '鎂', unit: 'mg', group: 'mineral' },
   { key: 'fe', label: '鐵', unit: 'mg', group: 'mineral' },
   { key: 'zn', label: '鋅', unit: 'mg', group: 'mineral' },
   { key: 'p_min', label: '磷', unit: 'mg', group: 'mineral' },
+  { key: 'cu', label: '銅', unit: 'mg', group: 'mineral' },
+  { key: 'mn', label: '錳', unit: 'mg', group: 'mineral' },
   
   // Vitamins
-  { key: 'vit_a', label: '維 A', unit: 'ug', group: 'vitamin' },
+  { key: 'vit_a', label: '維 A (RE)', unit: 'ug', group: 'vitamin' },
+  { key: 'vit_a_iu', label: '維 A (IU)', unit: 'IU', group: 'vitamin' },
+  { key: 'beta_carotene', label: 'β-胡蘿蔔素', unit: 'ug', group: 'vitamin' },
+  { key: 'vit_d_ug', label: '維 D', unit: 'ug', group: 'vitamin' },
+  { key: 'vit_d_iu', label: '維 D (IU)', unit: 'IU', group: 'vitamin' },
+  { key: 'vit_e', label: '維 E (α-TE)', unit: 'mg', group: 'vitamin' },
+  { key: 'vit_e_total', label: '維 E 總量', unit: 'mg', group: 'vitamin' },
+  { key: 'vit_k1', label: '維 K1', unit: 'ug', group: 'vitamin' },
   { key: 'vit_c', label: '維 C', unit: 'mg', group: 'vitamin' },
   { key: 'vit_b1', label: '維 B1', unit: 'mg', group: 'vitamin' },
   { key: 'vit_b2', label: '維 B2', unit: 'mg', group: 'vitamin' },
+  { key: 'niacin', label: '菸鹼素', unit: 'mg', group: 'vitamin' },
   { key: 'vit_b6', label: '維 B6', unit: 'mg', group: 'vitamin' },
   { key: 'vit_b12', label: '維 B12', unit: 'ug', group: 'vitamin' },
-  { key: 'vit_e', label: '維 E', unit: 'mg', group: 'vitamin' },
   { key: 'folic_acid', label: '葉酸', unit: 'ug', group: 'vitamin' },
+  
+  // Fatty Acids (Important ones)
+  { key: 'sfa_total', label: '飽和脂肪酸總量', unit: 'mg', group: 'detail' },
+  { key: 'mufa_total', label: '單元不飽和脂肪酸', unit: 'mg', group: 'detail' },
+  { key: 'pufa_total', label: '多元不飽和脂肪酸', unit: 'mg', group: 'detail' },
+  { key: 'linoleic_acid', label: '亞麻油酸 (18:2)', unit: 'mg', group: 'detail' },
+  { key: 'linolenic_acid', label: '次亞麻油酸 (18:3)', unit: 'mg', group: 'detail' },
+  { key: 'epa', label: 'EPA (20:5)', unit: 'mg', group: 'detail' },
+  { key: 'dha', label: 'DHA (22:6)', unit: 'mg', group: 'detail' },
+  { key: 'arachidonic_acid', label: '花生油酸 (20:4)', unit: 'mg', group: 'detail' },
+  
+  // Essential Amino Acids
+  { key: 'total_amino_acids', label: '胺基酸總量', unit: 'mg', group: 'detail' },
+  { key: 'tryptophan', label: '色胺酸', unit: 'mg', group: 'detail' },
+  { key: 'lysine', label: '離胺酸', unit: 'mg', group: 'detail' },
+  { key: 'methionine', label: '甲硫胺酸', unit: 'mg', group: 'detail' },
+  { key: 'phenylalanine', label: '苯丙胺酸', unit: 'mg', group: 'detail' },
+  { key: 'threonine', label: '酥胺酸', unit: 'mg', group: 'detail' },
+  { key: 'valine', label: '纈胺酸', unit: 'mg', group: 'detail' },
+  { key: 'leucine', label: '白胺酸', unit: 'mg', group: 'detail' },
+  { key: 'isoleucine', label: '異白胺酸', unit: 'mg', group: 'detail' },
 ];
 
 // Default visible nutrients for a clean start

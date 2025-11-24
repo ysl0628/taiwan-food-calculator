@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "convert-excel": "node scripts/convert-excel.js",
+    "export": "next build && next export"
   },
   "dependencies": {
     "react": "^19.2.0",

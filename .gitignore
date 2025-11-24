@@ -33,6 +33,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Excel data files (large files)
-*.xlsx
-*.xls
+# Excel 原始檔案（太大，不提交）
+raw_data.xlsx

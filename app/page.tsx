@@ -20,11 +20,11 @@ export default function Home() {
   // Store imported food items globally so they persist across view changes
   const [extraFoods, setExtraFoods] = useState<FoodItem[]>([]);
 
-  // Load food data from API
+  // Load food data from JSON file
   useEffect(() => {
     const loadFoods = async () => {
       try {
-        const response = await fetch('/api/foods');
+        const response = await fetch('/foods.json');
         if (response.ok) {
           const data = await response.json();
           setFoodDB(data);
