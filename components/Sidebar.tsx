@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChefHat, PanelLeftClose, PanelLeft, Info } from './Icons';
 import { FoodItem } from '@/types';
-import ExcelImporter from './ExcelImporter';
+// import ExcelImporter from './ExcelImporter';
 import { useStore } from '@/store/useStore';
 import { WORKFLOW_NAV_ITEMS } from './navItems';
+import { ga } from '@/utils/ga';
 
 interface SidebarProps {
   onImport?: (items: FoodItem[]) => void;
@@ -74,6 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
               key={item.path}
               href={item.path}
               title={isCollapsed ? item.label : ''}
+              onClick={() => ga.pageView(item.path)}
               className={`
                 w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 relative group
                 ${isActive 
@@ -104,6 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
         <Link
           href="/about"
           title={isCollapsed ? '關於' : ''}
+          onClick={() => ga.pageView('/about')}
           className={`
             w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 relative group
             ${pathname === '/about' 
@@ -128,7 +131,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
       </div>
 
       {/* Footer Actions */}
-      <div className={`px-3 pb-4 ${isCollapsed ? 'flex flex-col items-center' : ''}`}>
+      {/* <div className={`px-3 pb-4 ${isCollapsed ? 'flex flex-col items-center' : ''}`}>
         {!isCollapsed && (
           <div className="text-xs font-bold text-slate-400 uppercase tracking-wider px-3 mb-2 whitespace-nowrap">
             Data Source
@@ -142,7 +145,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
               className={isCollapsed ? '' : 'w-full justify-center'} 
             />
         </div>
-      </div>
+      </div> */}
 
       {/* Info Box - Only visible when expanded */}
       {!isCollapsed && (
@@ -150,7 +153,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
           <div className="bg-blue-50 rounded-xl p-4 animate-in fade-in zoom-in duration-300">
             <h4 className="text-xs font-bold text-blue-800 mb-1">專業版功能</h4>
             <p className="text-[10px] text-blue-600/80 leading-relaxed">
-              請依照順序完成：<br/>1. 評估 -&gt; 2. 處方 -&gt; 3. 紀錄 -&gt; 4. 分析
+              請依照順序完成：<br/>1. 評估 -&gt; 2. 設計 -&gt; 3. 紀錄 -&gt; 4. 分析
             </p>
           </div>
         </div>

@@ -2,6 +2,7 @@
 import React from 'react';
 import { DietPlan, FOOD_GROUPS, MEAL_TIMES, EXCHANGE_STANDARDS, FoodGroupId, MealTimeId } from '@/types';
 import { ClipboardList, ArrowRight } from './Icons';
+import { ga } from '@/utils/ga';
 
 interface PlanningViewProps {
   plan: DietPlan;
@@ -225,7 +226,10 @@ const PlanningView: React.FC<PlanningViewProps> = ({ plan, tdee, onUpdate, onNex
       </div>
 
       <button 
-            onClick={onNext}
+            onClick={() => {
+              ga.completeDietPlanning();
+              onNext();
+            }}
             className="w-full py-4 bg-slate-900 text-white rounded-xl font-bold text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-200 active:scale-[0.98]"
         >
             下一步：開始飲食紀錄

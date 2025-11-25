@@ -2,6 +2,7 @@
 import React from 'react';
 import { UserProfile, ActivityLevel } from '@/types';
 import { User, Activity, Scale, ArrowRight, Flame } from './Icons';
+import { ga } from '@/utils/ga';
 
 interface ProfileViewProps {
   profile: UserProfile;
@@ -251,7 +252,10 @@ const ProfileView: React.FC<ProfileViewProps> = ({ profile, onUpdate, onNext }) 
 
            <div className="pt-2">
              <button 
-               onClick={onNext}
+               onClick={() => {
+                 ga.completeProfileAssessment();
+                 onNext();
+               }}
                className="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-200 active:scale-[0.98]"
              >
                下一步：設定熱量設計

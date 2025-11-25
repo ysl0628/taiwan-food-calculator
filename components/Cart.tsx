@@ -2,6 +2,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { CartItem, NUTRIENT_METADATA, NutrientKey, MEAL_TIMES, MealTimeId } from '@/types';
 import { Trash2, Plus, Minus, Utensils, ChevronUp, ChevronDown, Settings, Save, PieChart, ClipboardList } from './Icons';
+import { ga } from '@/utils/ga';
 
 interface CartProps {
   items: CartItem[];
@@ -291,7 +292,11 @@ const Cart: React.FC<CartProps> = ({
                             ))}
                         </select>
                         <button 
-                            onClick={() => onAddToLog(selectedMeal)}
+                            onClick={() => {
+                              const meal = MEAL_TIMES.find(m => m.id === selectedMeal);
+                              ga.addToLog(meal?.label);
+                              onAddToLog(selectedMeal);
+                            }}
                             className="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-200"
                         >
                             <Save className="w-4 h-4" />

@@ -2,6 +2,7 @@
 import React from 'react';
 import { DietPlan, DailyRecord, FOOD_GROUPS, MEAL_TIMES, EXCHANGE_STANDARDS, FoodGroupId, CartItem, MealTimeId } from '@/types';
 import { PieChart, AlertTriangle, Check, Save, FileSpreadsheet, Trash2 } from './Icons';
+import { ga } from '@/utils/ga';
 
 interface AnalysisViewProps {
   plan: DietPlan;
@@ -148,7 +149,10 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
             
             <div className="flex gap-2 w-full md:w-auto">
                  <button 
-                    onClick={handleExportSingle}
+                    onClick={() => {
+                      ga.exportExcel('single');
+                      handleExportSingle();
+                    }}
                     className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 transition-colors text-sm font-medium w-full md:w-auto"
                 >
                     <FileSpreadsheet className="w-4 h-4" />
@@ -252,7 +256,10 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
                 確認資料無誤後，請點擊儲存。
             </div>
             <button 
-                onClick={onSave}
+                onClick={() => {
+                  ga.saveCase();
+                  if (onSave) onSave();
+                }}
                 className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-slate-200 active:scale-95"
             >
                 <Save className="w-4 h-4" />

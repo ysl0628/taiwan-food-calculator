@@ -5,6 +5,7 @@ import { Search, Activity, Plus, Target, X, PieChart, ChevronRight, ClipboardLis
 import FoodCard from './FoodCard';
 import Cart from './Cart';
 import NutrientSettings from './NutrientSettings';
+import { ga } from '@/utils/ga';
 interface CalculatorViewProps {
   dietPlan: DietPlan;
   visibleNutrients: NutrientKey[];
@@ -41,7 +42,10 @@ const ProgressDashboard = ({ current, target, onAnalysis }: { current: any, targ
                <Target className="w-4 h-4 text-blue-500" /> 整日攝取進度 (日記 + 暫存)
            </div>
            <button 
-             onClick={onAnalysis}
+             onClick={() => {
+               ga.viewAnalysis();
+               onAnalysis();
+             }}
              className="flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-lg transition-colors"
            >
              <PieChart className="w-3 h-3" />

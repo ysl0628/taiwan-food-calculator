@@ -123,7 +123,7 @@ export default function AboutPage() {
 
         {/* Version */}
         <div className="mt-6 pt-6 border-t border-slate-200 text-center">
-          <p className="text-xs text-slate-400">Taiwan NutriCalc Pro v1.0.0</p>
+          <p className="text-xs text-slate-400">Taiwan NutriCalc Pro v1.1.0</p>
           <p className="text-xs text-slate-400 mt-1">© 2025 Renee Lan</p>
         </div>
       </div>

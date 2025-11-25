@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { CaseRecord, NUTRIENT_METADATA, MEAL_TIMES } from '@/types';
 import { FileSpreadsheet, Trash2, History, X, Activity, User, Calendar, Calculator, Scale, ArrowRight } from './Icons';
+import { ga } from '@/utils/ga';
 
 interface HistoryViewProps {
   savedCases: CaseRecord[];
@@ -263,7 +264,10 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
                   {/* Footer Actions */}
                   <div className="p-5 border-t border-slate-100 bg-slate-50 flex justify-between items-center">
                       <button 
-                          onClick={() => handleExportSingleCase(record)}
+                          onClick={() => {
+                            ga.exportExcel('single');
+                            handleExportSingleCase(record);
+                          }}
                           className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-100 hover:text-blue-600 transition-colors font-medium text-sm shadow-sm"
                       >
                           <FileSpreadsheet className="w-4 h-4" />
@@ -280,6 +284,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
                           {onLoad && (
                               <button 
                                   onClick={() => {
+                                      ga.loadCase();
                                       onLoad(record);
                                       onClose();
                                   }}
@@ -315,7 +320,10 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
             
             {savedCases.length > 0 && (
                 <button 
-                    onClick={handleExportSummary}
+                    onClick={() => {
+                      ga.exportExcel('summary');
+                      handleExportSummary();
+                    }}
                     className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors font-medium text-sm w-full md:w-auto"
                 >
                     <FileSpreadsheet className="w-4 h-4" />
