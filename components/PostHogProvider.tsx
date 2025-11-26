@@ -6,8 +6,13 @@ import { useEffect } from "react"
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    const apiHost =
+      process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() ||
+      "https://us.i.posthog.com"
+
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: "/ingest",
+      // For static export on GitHub Pages, rewrites won't run, so use absolute host.
+      api_host: apiHost,
       ui_host: "https://us.posthog.com",
       defaults: '2025-05-24',
       capture_exceptions: true, // This enables capturing exceptions using Error Tracking
