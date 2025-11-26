@@ -16,6 +16,7 @@ import {
 import { WORKFLOW_NAV_ITEMS } from "./navItems";
 import ExcelImporter from "./ExcelImporter";
 import { ga } from "@/utils/ga";
+import { pageViewPH } from "@/utils/posthogEvents";
 
 export default function LayoutWrapper({
   children,
@@ -38,6 +39,7 @@ export default function LayoutWrapper({
   useEffect(() => {
     if (pathname) {
       ga.pageView(pathname);
+      pageViewPH(pathname);
     }
   }, [pathname]);
 

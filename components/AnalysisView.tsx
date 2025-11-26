@@ -3,6 +3,7 @@ import React from 'react';
 import { DietPlan, DailyRecord, FOOD_GROUPS, MEAL_TIMES, EXCHANGE_STANDARDS, FoodGroupId, CartItem, MealTimeId } from '@/types';
 import { PieChart, AlertTriangle, Check, Save, FileSpreadsheet, Trash2 } from './Icons';
 import { ga } from '@/utils/ga';
+import { capturePH } from '@/utils/posthogEvents';
 
 interface AnalysisViewProps {
   plan: DietPlan;
@@ -106,6 +107,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
         alert('Excel library missing');
         return;
       }
+      capturePH('analysis_exported', { type: 'single' });
       // Prepare data
       const allItems = Object.values(dailyRecord).flat();
       const totalCal = allItems.reduce((sum, i) => sum + i.cal * i.quantity, 0);
@@ -258,6 +260,9 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ plan, dailyRecord, onSave, 
             <button 
                 onClick={() => {
                   ga.saveCase();
+                  const allItems = Object.values(dailyRecord).flat();
+                  const totalCal = allItems.reduce((sum, i) => sum + i.cal * i.quantity, 0);
+                  capturePH("case_saved");
                   if (onSave) onSave();
                 }}
                 className="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-slate-200 active:scale-95"

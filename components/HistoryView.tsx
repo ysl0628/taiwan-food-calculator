@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { CaseRecord, NUTRIENT_METADATA, MEAL_TIMES } from '@/types';
 import { FileSpreadsheet, Trash2, History, X, Activity, User, Calendar, Calculator, Scale, ArrowRight } from './Icons';
 import { ga } from '@/utils/ga';
+import { capturePH } from '@/utils/posthogEvents';
 
 interface HistoryViewProps {
   savedCases: CaseRecord[];
@@ -19,6 +20,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
         alert('Excel export library not loaded.');
         return;
     }
+    capturePH('history_exported', { type: 'summary' });
 
     const exportData = savedCases.map(c => ({
         '紀錄日期': new Date(c.timestamp).toLocaleDateString(),
@@ -43,6 +45,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
   // --- Single Case Detail Export ---
   const handleExportSingleCase = (record: CaseRecord) => {
       if (!(window as any).XLSX) { alert('Excel library missing'); return; }
+      capturePH('analysis_exported', { type: 'single' });
       
       const wb = (window as any).XLSX.utils.book_new();
       const dateStr = new Date(record.timestamp).toLocaleDateString();
@@ -285,6 +288,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
                               <button 
                                   onClick={() => {
                                       ga.loadCase();
+                                      capturePH('case_loaded', { case_id: record.id, profile_name: record.profile.name });
                                       onLoad(record);
                                       onClose();
                                   }}
@@ -396,6 +400,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ savedCases, onDelete, onLoad 
                                                 onClick={(e) => {
                                                     e.stopPropagation(); // Prevent row click
                                                     onDelete(item.id);
+                                                    capturePH('case_deleted', { case_id: item.id, profile_name: item.profile.name });
                                                 }}
                                                 className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                                                 title="刪除紀錄"

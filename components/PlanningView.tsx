@@ -3,6 +3,7 @@ import React from 'react';
 import { DietPlan, FOOD_GROUPS, MEAL_TIMES, EXCHANGE_STANDARDS, FoodGroupId, MealTimeId } from '@/types';
 import { ClipboardList, ArrowRight } from './Icons';
 import { ga } from '@/utils/ga';
+import { capturePH } from '@/utils/posthogEvents';
 
 interface PlanningViewProps {
   plan: DietPlan;
@@ -227,6 +228,7 @@ const PlanningView: React.FC<PlanningViewProps> = ({ plan, tdee, onUpdate, onNex
 
       <button 
             onClick={() => {
+              capturePH('complete_diet_planning');
               ga.completeDietPlanning();
               onNext();
             }}

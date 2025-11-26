@@ -3,6 +3,7 @@ import React from 'react';
 import { UserProfile, ActivityLevel } from '@/types';
 import { User, Activity, Scale, ArrowRight, Flame } from './Icons';
 import { ga } from '@/utils/ga';
+import { capturePH, identifyPH } from '@/utils/posthogEvents';
 
 interface ProfileViewProps {
   profile: UserProfile;
@@ -253,6 +254,7 @@ const ProfileView: React.FC<ProfileViewProps> = ({ profile, onUpdate, onNext }) 
            <div className="pt-2">
              <button 
                onClick={() => {
+                 capturePH('profile_assessment_completed');
                  ga.completeProfileAssessment();
                  onNext();
                }}

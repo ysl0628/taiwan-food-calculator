@@ -3,6 +3,7 @@ import Script from "next/script";
 
 import "./globals.css";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 export const metadata: Metadata = {
   title: "Taiwan NutriCalc Pro",
@@ -52,7 +53,9 @@ export default function RootLayout({
             gtag('config', 'G-XTP6LZFZS1');
           `}
         </Script>
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <PostHogProvider>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </PostHogProvider>
       </body>
     </html>
   );

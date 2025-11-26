@@ -4,6 +4,7 @@ import { FoodItem, NUTRIENT_METADATA, NutrientKey } from '@/types';
 import { Plus, Info } from './Icons';
 import FoodDetailDialog from './FoodDetailDialog';
 import { ga } from '@/utils/ga';
+import { capturePH } from '@/utils/posthogEvents';
 
 interface FoodCardProps {
   item: FoodItem;
@@ -92,6 +93,11 @@ const FoodCard: React.FC<FoodCardProps> = ({ item, onAdd, visibleNutrients }) =>
             <button 
               onClick={() => {
                 ga.viewFoodDetail();
+                capturePH('food_detail_viewed', {
+                  food_id: item.id,
+                  name: item.name,
+                  category: item.category,
+                });
                 setIsDetailOpen(true);
               }}
               className="p-1.5 -mr-2 -mt-2 text-slate-300 hover:text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
