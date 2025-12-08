@@ -6,9 +6,6 @@ const nextConfig = {
   // Configure basePath for GitHub Pages subdirectory
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || '',
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     unoptimized: true, // GitHub Pages 需要
   },
@@ -18,6 +15,11 @@ const nextConfig = {
       '@': require('path').resolve(__dirname, '.'),
     };
     return config;
+  },
+  turbopack: {
+    resolveAlias: {
+      '@': require('path').resolve(__dirname, '.'),
+    },
   },
   async rewrites() {
     return [

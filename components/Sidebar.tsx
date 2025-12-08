@@ -16,7 +16,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ onImport }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const pathname = usePathname();
-  const addExtraFoods = useStore((state) => state.addExtraFoods);
+  const addExtraFoods = useStore((state: any) => state.addExtraFoods);
   
   const handleImport = (items: FoodItem[]) => {
     addExtraFoods(items);
